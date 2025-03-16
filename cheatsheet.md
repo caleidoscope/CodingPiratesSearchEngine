@@ -15,13 +15,11 @@ student = {"name": "Alice", "age": 12}  # Dictionary
 for fruit in fruits:
     print(fruit)  # Loop through a list
 
+for i,fruit in enumerate(fruits):
+    print(i,fruit)  # Loop through a list with index position
+
 for key, value in student.items():
     print(key, "->", value)  # Loop through a dictionary
-
-x = 0
-while x < 3:
-    print(x)
-    x += 1
 
 # Functions
 def greet(name):
