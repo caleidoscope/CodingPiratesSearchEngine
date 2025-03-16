@@ -37,14 +37,37 @@ def compute_tf2(doc):
     total_terms = len(doc)
     return {term: count / total_terms for term, count in term_count.items()}
 
+def find_all_words(documents):
+    all_words = set()
+    for doc in documents:
+        for word in doc:
+            all_words.add(word)
+    return all_words
 
-# Script start 
+def compute_idf(words):
+    idf_scores = {}
+    for word in words:
+        docs_count = 0
+        for doc in documents:
+            if word in doc:
+                docs_count += 1
+        idf_scores[word] = math.log(len(documents) / docs_count)
+    return idf_scores
 
+# Script start
+
+# Preprocessing
 for quote in quotes:
     documents.append(tokenize(quote))
+#print("Documents:",documents)
 
+# Calculate Term Frequence
 for doc in documents:
     tf_scores.append(compute_tf1(doc))
+#print("TF Scores:",tf_scores)
 
-tf_scores
+# Find all words
+all_words = find_all_words(documents)
+idf_scores = compute_idf(all_words)
+#print("IDF Scores:", idf_scores)
 ```
