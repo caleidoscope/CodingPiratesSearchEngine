@@ -60,12 +60,25 @@ def compute_tf_idf(tf_score):
         tf_idf_score[key] = value * idf_scores[key]
     return tf_idf_score
 
+def search(query):
+    query_terms = query.lower().split()
+    print(query_terms)
+    scores = []
+    for i, doc_tf_idf in enumerate(tf_idf_scores):
+        score = 0
+        for term in query_terms:
+            score += doc_tf_idf.get(term, 0)
+        if score > 0:
+            scores.append((score, quotes[i]))
+    return sorted(scores, reverse=True)
+
+
 # Script start
 
 # Preprocessing
 for quote in quotes:
     documents.append(tokenize(quote))
-#print("Documents:",documents)
+print("Documents:",documents)
 
 # Calculate Term Frequence
 for doc in documents:
@@ -76,4 +89,16 @@ for doc in documents:
 all_words = find_all_words(documents)
 idf_scores = compute_idf(all_words)
 #print("IDF Scores:", idf_scores)
+
+# calculate Term Frequency - Inverse Document Frequency
+for tf in tf_scores:
+    tf_idf_scores.append(compute_tf_idf(tf))
+#print("TF-IDF Scores:", tf_idf_scores)
+
+# Search string
+query = "MennesKER er hyggelige"
+results = search(query)
+
+for score, quote in results:
+    print(f"Score: {score:.3f}, Quote: {quote}")
 ```
