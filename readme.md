@@ -54,6 +54,12 @@ def compute_idf(words):
         idf_scores[word] = math.log(len(documents) / docs_count)
     return idf_scores
 
+def compute_tf_idf(tf_score):
+    tf_idf_score = {}
+    for key, value in tf_score.items():
+        tf_idf_score[key] = value * idf_scores[key]
+    return tf_idf_score
+
 # Script start
 
 # Preprocessing
